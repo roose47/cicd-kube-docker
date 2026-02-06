@@ -2,9 +2,9 @@ pipeline {
 
     agent any
 
-	// tools {
-    //     maven "maven3"
-    // }
+	tools {
+        maven "MAVEN3"
+    }
 
     environment {
         registry = "kuberoose/vproappdock"

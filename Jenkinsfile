@@ -52,9 +52,11 @@ pipeline {
 
             environment {
                 scannerHome = tool 'mysonarscanner4'
+                JAVA_11_HOME = tool 'OracleJDK11'
             }
 
             steps {
+                withEnv(["JAVA_HOME=${JAVA_11_HOME}", "PATH+JAVA=${JAVA_11_HOME}/bin"]) {
                 withSonarQubeEnv('sonar-pro') {
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
                    -Dsonar.projectName=vprofile-repo \
@@ -65,8 +67,9 @@ pipeline {
                    -Dsonar.jacoco.reportsPath=target/jacoco.exec \
                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
                 }
+                }
 
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }

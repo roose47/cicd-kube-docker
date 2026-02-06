@@ -7,7 +7,7 @@ pipeline {
     // }
 
     environment {
-        registry = "kuberoose/vprofileapp"
+        registry = "kuberoose/vproappdock"
         registryCredential = 'dockerhub'
     }
 
